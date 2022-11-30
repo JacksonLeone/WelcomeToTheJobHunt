@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Welcome to the Job Hunt"
-config/description="Game that simulates the trials and tribulations of online job applications."
+config/name="WelcometotheJobHunt"
+run/main_scene="res://test.tscn"
 config/icon="res://icon.png"
 
 [gui]
