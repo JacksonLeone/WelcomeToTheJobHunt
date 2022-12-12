@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="WelcometotheJobHunt"
-run/main_scene="res://test.tscn"
+run/main_scene="res://Scenes/CardDraw.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/always_on_top=true
 
 [gui]
 
