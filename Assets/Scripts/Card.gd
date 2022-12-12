@@ -23,3 +23,10 @@ func _on_Node2D_newCard(new_values):
 	personality.set_frame(new_values[1])
 	efficiency.set_frame(new_values[2])
 	skills.set_frame(new_values[3])
+
+
+func _on_Node2D_saveCard(new_values):
+	intelligence.set_frame(new_values[0])
+	personality.set_frame(new_values[1])
+	efficiency.set_frame(new_values[2])
+	skills.set_frame(new_values[3])

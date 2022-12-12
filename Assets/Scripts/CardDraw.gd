@@ -8,8 +8,11 @@ var cards = {}
 var cardNames = []
 var deck = []
 var discard = []
+var currCard = null
+var savedCard = null
 
 signal newCard(new_values)
+signal saveCard(new_values)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,19 +35,38 @@ func _ready():
 
 
 func _on_SaveButton_button_down():
-	pass # Replace with function body.
+	if currCard != null and currCard != savedCard:
+		if currCard.begins_with("Ace"):
+			print("Can't save Aces")
+		elif savedCard != null:
+			if (discard.count(savedCard) == 0):
+				discard.append(savedCard)
+			savedCard = currCard
+			emit_signal("saveCard", cards[savedCard])
+			_on_DrawButton_button_down()
 
 
 func _on_DrawButton_button_down():
-	# Replace with function body.
-	var currCard = deck.pop_at(randi() % deck.size())
-	print(currCard)
-	print("Intelligence: " + str(cards[currCard][0]))
-	print("Personality: " + str(cards[currCard][1]))
-	print("Efficiency: " + str(cards[currCard][2]))
-	print("Skills: " + str(cards[currCard][3]))
-	print("Level: " + str(cards[currCard][4]))
+	if currCard != null and (discard.count(currCard) == 0):
+		discard.append(currCard)
+	
 	if deck.size() == 0:
 		deck = discard.duplicate(true)
 		discard.clear()
+	
+	currCard = deck.pop_at(randi() % deck.size())
+	#print(currCard)
+	#print("Intelligence: " + str(cards[currCard][0]))
+	#print("Personality: " + str(cards[currCard][1]))
+	#print("Efficiency: " + str(cards[currCard][2]))
+	#print("Skills: " + str(cards[currCard][3]))
+	#print("Level: " + str(cards[currCard][4]))
+	print(deck.size())
+	print(discard.size())
+	
+	
 	emit_signal("newCard", cards[currCard])
+
+
+func _on_Node2D_saveCard(values, card):
+	pass # Replace with function body.
