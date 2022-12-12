@@ -1,115 +1,115 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://Assets/Art/Stat Tracker.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Art/UpButton.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Prefabs/Prefab Selector.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Art/Digits.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/Digits.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Stat Tracker.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/UpButton.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scripts/Selector.gd" type="Script" id=4]
 
 [sub_resource type="Theme" id=1]
 
 [sub_resource type="AtlasTexture" id=22]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 0, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 0, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 52, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=5]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 52, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 52, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 104, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=8]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 104, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 104, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=10]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 156, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 156, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=12]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 156, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 208, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=14]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 208, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=15]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 208, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=16]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 260, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=17]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 260, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 260, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=19]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 312, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=20]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 124, 312, 124, 52 )
 
 [sub_resource type="AtlasTexture" id=21]
 flags = 4
-atlas = ExtResource( 4 )
+atlas = ExtResource( 1 )
 region = Rect2( 248, 312, 124, 52 )
 
 [sub_resource type="SpriteFrames" id=23]
@@ -121,14 +121,17 @@ animations = [ {
 } ]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2( 128, 128 )
-script = ExtResource( 3 )
+position = Vector2( 160, 152 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Up Button" type="Button" parent="."]
 margin_left = -24.0
-margin_top = -96.0
+margin_top = -100.0
 margin_right = 28.0
-margin_bottom = -45.0
+margin_bottom = -49.0
 rect_scale = Vector2( 0.91708, 0.944916 )
 focus_mode = 0
 theme = SubResource( 1 )
@@ -136,18 +139,18 @@ flat = true
 icon_align = 1
 
 [node name="Sprite" type="Sprite" parent="Up Button"]
-position = Vector2( 26.17, 25.3991 )
+position = Vector2( 26.17, 21.1659 )
 scale = Vector2( 0.291248, 0.291248 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="Counter" type="Sprite" parent="."]
 position = Vector2( -3.8147e-06, -1.52588e-05 )
 scale = Vector2( 0.203431, 0.203431 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="CounterNum" type="AnimatedSprite" parent="Counter"]
 position = Vector2( 0, 6.10352e-05 )
-scale = Vector2( 3.02502, 3.02502 )
+scale = Vector2( 4.53754, 4.53754 )
 frames = SubResource( 23 )
 
 [node name="Down Button" type="Button" parent="."]
@@ -162,10 +165,11 @@ flat = true
 icon_align = 1
 
 [node name="Sprite" type="Sprite" parent="Down Button"]
-position = Vector2( 26.17, 25.3991 )
+position = Vector2( 26.17, 33.8654 )
 scale = Vector2( 0.291248, 0.291248 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 flip_v = true
 
-[connection signal="button_down" from="Up Button" to="." method="_on_Button_button_down"]
 [connection signal="button_down" from="Up Button" to="." method="_on_Up_Button_button_down"]
+[connection signal="button_down" from="Up Button" to="." method="_on_Button_button_down"]
+[connection signal="button_down" from="Down Button" to="." method="_on_Down_Button_button_down"]
