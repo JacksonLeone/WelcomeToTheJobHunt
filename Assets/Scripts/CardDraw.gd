@@ -38,8 +38,8 @@ func _on_SaveButton_button_down():
 	if currCard != null and currCard != savedCard:
 		if currCard.begins_with("Ace"):
 			print("Can't save Aces")
-		elif savedCard != null:
-			if (discard.count(savedCard) == 0):
+		else:
+			if savedCard != null and (discard.count(savedCard) == 0):
 				discard.append(savedCard)
 			savedCard = currCard
 			emit_signal("saveCard", cards[savedCard])
@@ -61,12 +61,8 @@ func _on_DrawButton_button_down():
 	#print("Efficiency: " + str(cards[currCard][2]))
 	#print("Skills: " + str(cards[currCard][3]))
 	#print("Level: " + str(cards[currCard][4]))
-	print(deck.size())
-	print(discard.size())
+	#print(deck.size())
+	#print(discard.size())
 	
 	
 	emit_signal("newCard", cards[currCard])
-
-
-func _on_Node2D_saveCard(values, card):
-	pass # Replace with function body.
