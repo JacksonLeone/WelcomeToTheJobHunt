@@ -9,7 +9,7 @@ var cardNames = []
 var deck = []
 var discard = []
 
-
+signal newCard(new_values)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,3 +47,4 @@ func _on_DrawButton_button_down():
 	if deck.size() == 0:
 		deck = discard.duplicate(true)
 		discard.clear()
+	emit_signal("newCard", cards[currCard])
