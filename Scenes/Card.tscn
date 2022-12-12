@@ -1,8 +1,8 @@
 [gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://Card Template.png" type="Texture" id=1]
-[ext_resource path="res://Digits.png" type="Texture" id=2]
-[ext_resource path="res://Card.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Art/Card Template.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Digits.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scripts/Card.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4

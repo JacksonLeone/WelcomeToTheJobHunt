@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Digits.png-89c82be4746a5f30dcfc41ad609cf055.stex"
+path="res://.import/Digits.png-dcdf8be08987c06995de61a555df76ad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Digits.png"
-dest_files=[ "res://.import/Digits.png-89c82be4746a5f30dcfc41ad609cf055.stex" ]
+source_file="res://Assets/Art/Digits.png"
+dest_files=[ "res://.import/Digits.png-dcdf8be08987c06995de61a555df76ad.stex" ]
 
 [params]
 
