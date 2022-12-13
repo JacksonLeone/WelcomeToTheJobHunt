@@ -1,8 +1,20 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scripts/Menu/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/CardDraw.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/PointBuy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Node2D
+
+export var nextGameScene : PackedScene
+
+func _on_New_Game_Button_button_up():
+	get_tree().change_scene(nextGameScene.resource_path)
+
+
+func _on_Start_Game_Button_button_up():
+	print(nextGameScene)
+"
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -36,8 +48,8 @@ shadow_color = Color( 0.94902, 0.117647, 0.117647, 0.6 )
 shadow_offset = Vector2( 1, 1 )
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource( 1 )
-mainGameScene = ExtResource( 2 )
+script = SubResource( 6 )
+nextGameScene = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0

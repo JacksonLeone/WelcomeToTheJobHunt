@@ -26,17 +26,21 @@ func update_counters(difference):
 func _on_Intelligence_Selector_numberChanged(currentNum, difference):
 	update_counters((difference))
 	intelligence = currentNum
+	PlayerStats.intelligence = intelligence
 
 func _on_Personality_Selector_numberChanged(currentNum, difference):
 	update_counters((difference))
 	personality = currentNum
+	PlayerStats.personality = personality
 
 
 func _on_Skills_Selector_numberChanged(currentNum, difference):
 	update_counters(difference)
 	skills = currentNum
+	PlayerStats.skills = skills
 
 
 func _on_Efficiency_Selector_numberChanged(currentNum, difference):
 	update_counters(difference)
 	efficiency = currentNum
+	PlayerStats.efficiency = efficiency

@@ -3,8 +3,6 @@
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
 
-
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -15,45 +13,79 @@ scale = Vector2( 0.8, 0.8 )
 [node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
 
 [node name="SavedCard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( 407.5, -43.75 )
+position = Vector2( 475.75, -123.75 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="Button" type="Node2D" parent="."]
+[node name="Player" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( 475.75, 225 )
+scale = Vector2( 0.5, 0.5 )
 
-[node name="DrawButton" type="ToolButton" parent="Button"]
+[node name="Deck" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( -500, -123.75 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Discard" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( -500, 225 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="DrawButton" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="DrawButton"]
+margin_left = 376.0
+margin_top = 483.0
+margin_right = 526.0
+margin_bottom = 533.0
+rect_pivot_offset = Vector2( 1671, 267 )
+color = Color( 0.203922, 0.388235, 0.27451, 1 )
+
+[node name="Button" type="ToolButton" parent="DrawButton"]
 margin_left = 376.0
 margin_top = 483.0
 margin_right = 526.0
 margin_bottom = 533.0
 text = "Draw"
 
-[node name="Button2" type="Node2D" parent="."]
+[node name="ApplyButton" type="Node2D" parent="."]
 
-[node name="SaveButton" type="ToolButton" parent="Button2"]
+[node name="ColorRect" type="ColorRect" parent="ApplyButton"]
 margin_left = 541.0
 margin_top = 483.0
 margin_right = 691.0
 margin_bottom = 533.0
-text = "Save"
+rect_pivot_offset = Vector2( 1671, 267 )
+color = Color( 0.207843, 0.239216, 0.219608, 1 )
 
-[node name="Node2D" type="Node2D" parent="."]
-visible = false
+[node name="Button" type="ToolButton" parent="ApplyButton"]
+margin_left = 541.0
+margin_top = 483.0
+margin_right = 691.0
+margin_bottom = 533.0
+disabled = true
+text = "Apply"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Node2D"]
-margin_left = 376.0
-margin_top = 58.0
-margin_right = 693.0
-margin_bottom = 375.0
-text = "Name
-Level
-Intelligence
-Personality
-Efficiency
-Skills
-"
-scroll_active = false
+[node name="InterviewButton" type="Node2D" parent="."]
+position = Vector2( 246, -134 )
+
+[node name="ColorRect" type="ColorRect" parent="InterviewButton"]
+margin_left = 593.0
+margin_top = 401.0
+margin_right = 743.0
+margin_bottom = 451.0
+rect_pivot_offset = Vector2( 1671, 267 )
+color = Color( 0.207843, 0.239216, 0.219608, 1 )
+
+[node name="Button" type="ToolButton" parent="InterviewButton"]
+margin_left = 593.0
+margin_top = 401.0
+margin_right = 743.0
+margin_bottom = 451.0
+disabled = true
+text = "Interview"
+icon_align = 1
 
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
+[connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
 [connection signal="saveCard" from="." to="Cards/SavedCard" method="_on_Node2D_saveCard"]
-[connection signal="button_down" from="Button/DrawButton" to="." method="_on_DrawButton_button_down"]
-[connection signal="button_down" from="Button2/SaveButton" to="." method="_on_SaveButton_button_down"]
+[connection signal="button_down" from="DrawButton/Button" to="." method="_on_DrawButton_button_down"]
+[connection signal="button_down" from="ApplyButton/Button" to="." method="_on_ApplyButton_button_down"]
+[connection signal="button_down" from="InterviewButton/Button" to="." method="_on_InterviewButton_button_down"]
