@@ -67,3 +67,5 @@ func _on_Node2D_playerCard():
 	personality.set_frame(PlayerStats.personality)
 	efficiency.set_frame(PlayerStats.efficiency)
 	skills.set_frame(PlayerStats.skills)
+
+

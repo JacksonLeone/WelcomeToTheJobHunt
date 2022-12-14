@@ -1,7 +1,54 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Art/PlayerStats.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/PlayerStats.gd" type="Script" id=4]
+[ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=11]
+size = 50
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.752941, 0.603922, 0.784314, 1 )
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.509804, 0.823529, 0.882353, 1 )
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.933333, 0.690196, 0.54902, 1 )
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.462745, 0.768627, 0.486275, 1 )
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.219608, 0.501961, 0.329412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.207843, 0.239216, 0.219608, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -11,13 +58,16 @@ position = Vector2( 534, 251 )
 scale = Vector2( 0.8, 0.8 )
 
 [node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( -3.75, -90 )
+scale = Vector2( 0.639744, 0.639744 )
 
 [node name="SavedCard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( 475.75, -123.75 )
+position = Vector2( 448.25, 15 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Player" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( 475.75, 225 )
+visible = false
+position = Vector2( 836.25, 245 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Deck" parent="Cards" instance=ExtResource( 2 )]
@@ -28,64 +78,115 @@ scale = Vector2( 0.5, 0.5 )
 position = Vector2( -500, 225 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="DrawButton" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 525, 552 )
+scale = Vector2( 0.677109, 0.642974 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="ColorRect" type="ColorRect" parent="DrawButton"]
-margin_left = 376.0
-margin_top = 483.0
-margin_right = 526.0
-margin_bottom = 533.0
-rect_pivot_offset = Vector2( 1671, 267 )
-color = Color( 0.203922, 0.388235, 0.27451, 1 )
+[node name="Intelligence" type="Button" parent="Sprite"]
+margin_left = -267.0
+margin_top = -95.0
+margin_right = -170.0
+margin_bottom = 29.0
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+custom_styles/disabled = SubResource( 6 )
+disabled = true
+text = "1"
 
-[node name="Button" type="ToolButton" parent="DrawButton"]
-margin_left = 376.0
-margin_top = 483.0
-margin_right = 526.0
-margin_bottom = 533.0
+[node name="Personality" type="Button" parent="Sprite"]
+margin_left = -121.103
+margin_top = -95.0
+margin_right = -24.1031
+margin_bottom = 29.0
+rect_pivot_offset = Vector2( 54.644, 87.2236 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+custom_styles/disabled = SubResource( 8 )
+disabled = true
+text = "1"
+
+[node name="Skills" type="Button" parent="Sprite"]
+margin_left = 23.6299
+margin_top = -94.8716
+margin_right = 120.63
+margin_bottom = 29.1284
+rect_pivot_offset = Vector2( 496.227, -93.3163 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+custom_styles/disabled = SubResource( 9 )
+disabled = true
+text = "1"
+
+[node name="Efficiency" type="Button" parent="Sprite"]
+margin_left = 169.84
+margin_top = -94.8716
+margin_right = 266.84
+margin_bottom = 29.1284
+rect_pivot_offset = Vector2( 496.227, -93.3163 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+custom_styles/disabled = SubResource( 10 )
+disabled = true
+text = "1"
+
+[node name="DrawButton" type="ToolButton" parent="."]
+margin_left = 351.0
+margin_top = 365.0
+margin_right = 501.0
+margin_bottom = 415.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
 text = "Draw"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="ApplyButton" type="Node2D" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="ApplyButton"]
+[node name="ApplyButton" type="ToolButton" parent="."]
 margin_left = 541.0
-margin_top = 483.0
+margin_top = 365.0
 margin_right = 691.0
-margin_bottom = 533.0
-rect_pivot_offset = Vector2( 1671, 267 )
-color = Color( 0.207843, 0.239216, 0.219608, 1 )
-
-[node name="Button" type="ToolButton" parent="ApplyButton"]
-margin_left = 541.0
-margin_top = 483.0
-margin_right = 691.0
-margin_bottom = 533.0
+margin_bottom = 415.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 disabled = true
 text = "Apply"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="InterviewButton" type="Node2D" parent="."]
-position = Vector2( 246, -134 )
-
-[node name="ColorRect" type="ColorRect" parent="InterviewButton"]
-margin_left = 593.0
-margin_top = 401.0
-margin_right = 743.0
-margin_bottom = 451.0
-rect_pivot_offset = Vector2( 1671, 267 )
-color = Color( 0.207843, 0.239216, 0.219608, 1 )
-
-[node name="Button" type="ToolButton" parent="InterviewButton"]
-margin_left = 593.0
-margin_top = 401.0
-margin_right = 743.0
-margin_bottom = 451.0
+[node name="InterviewButton" type="ToolButton" parent="."]
+margin_left = 817.0
+margin_top = 378.0
+margin_right = 967.0
+margin_bottom = 428.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 disabled = true
 text = "Interview"
+flat = false
 icon_align = 1
 
+[connection signal="ace" from="." to="Sprite" method="_on_Node2D_ace"]
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
 [connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
 [connection signal="saveCard" from="." to="Cards/SavedCard" method="_on_Node2D_saveCard"]
-[connection signal="button_down" from="DrawButton/Button" to="." method="_on_DrawButton_button_down"]
-[connection signal="button_down" from="ApplyButton/Button" to="." method="_on_ApplyButton_button_down"]
-[connection signal="button_down" from="InterviewButton/Button" to="." method="_on_InterviewButton_button_down"]
+[connection signal="ace_finished" from="Sprite" to="." method="_on_Sprite_ace_finished"]
+[connection signal="pressed" from="Sprite/Intelligence" to="Sprite" method="_on_Intelligence_pressed"]
+[connection signal="pressed" from="Sprite/Personality" to="Sprite" method="_on_Personality_pressed"]
+[connection signal="pressed" from="Sprite/Skills" to="Sprite" method="_on_Skills_pressed"]
+[connection signal="pressed" from="Sprite/Efficiency" to="Sprite" method="_on_Efficiency_pressed"]
+[connection signal="button_down" from="DrawButton" to="." method="_on_DrawButton_button_down"]
+[connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
+[connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]

@@ -1,9 +1,5 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var cards = {}
 var cardNames = []
 var deck = []
@@ -19,6 +15,7 @@ var success = 0
 signal newCard(new_card, new_values)
 signal saveCard(new_card, new_values)
 signal playerCard()
+signal ace()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,29 +38,14 @@ func _ready():
 #	pass
 
 
-func _on_ApplyButton_button_down():
-	lastClicked = "apply"
-	success = 1
-	if currCard != null and currCard != savedCard:
-		pass
-		#if currCard.begins_with("Ace"):
-			#print("Can't save Aces")
-		#else:
-		if savedCard != null and (discard.count(savedCard) == 0):
-			discard.append(savedCard)
-		savedCard = currCard
-		counter = 0
-		emit_signal("saveCard", savedCard, cards[savedCard])
-		_on_DrawButton_button_down()
-
-
 func _on_DrawButton_button_down():
+	$ApplyButton.disabled = false
 	if lastClicked == "draw" and currCard.begins_with("Ace") == false:
 		bonus = true
 	else:
 		bonus = false
+	
 	lastClicked = "draw"
-	var modifier = 0
 	if currCard != null and (discard.count(currCard) == 0):
 		discard.append(currCard)
 	
@@ -74,6 +56,41 @@ func _on_DrawButton_button_down():
 	currCard = deck.pop_at(randi() % deck.size())
 	counter += 1
 	emit_signal("newCard", currCard, cards[currCard])
+	if (currCard.begins_with("Ace")):
+		emit_signal("ace")
+		$DrawButton.disabled = true
+		$ApplyButton.disabled = true
+		
+	if counter == 8 and savedCard != null:
+		$InterviewButton.disabled = false
+	else:
+		$InterviewButton.disabled = true
+		if counter > 8 and savedCard != null:
+			discard.append(savedCard)
+			savedCard = null
+			emit_signal("saveCard", "null", [])
+			print("Missed interview")
+		
+
+func _on_ApplyButton_button_down():
+	var accepted = apply()
+	if accepted:
+		lastClicked = "apply"
+		success = 1
+		if currCard != null and currCard != savedCard:
+			pass
+			#if currCard.begins_with("Ace"):
+				#print("Can't save Aces")
+			#else:
+			if savedCard != null and (discard.count(savedCard) == 0):
+				discard.append(savedCard)
+			savedCard = currCard
+			counter = 0
+			emit_signal("saveCard", savedCard, cards[savedCard])
+			_on_DrawButton_button_down()
+
+func apply():
+	var modifier = 0
 	var roll
 	if currCard.begins_with("Ace"):
 		roll = -654
@@ -89,28 +106,15 @@ func _on_DrawButton_button_down():
 		roll = randi()%20+1
 		modifier += 2*int(bonus)
 	if roll + modifier > cards[currCard][4]:
-		$ApplyButton/Button.disabled = false
-		$ApplyButton/ColorRect.color = Color("346346")
 		print("Met requirements")
+		return true
 	else:
-		$ApplyButton/Button.disabled = true
-		$ApplyButton/ColorRect.color = Color("353d38")
-		if currCard.begins_with("Ace") == false:
-			print("Did not meet requirements")
-	
-	if counter == 8 and savedCard != null:
-		$InterviewButton/Button.disabled = false
-		$InterviewButton/ColorRect.color = Color("346346")
-	else:
-		$InterviewButton/Button.disabled = true
-		$InterviewButton/ColorRect.color = Color("353d38")
-		if counter > 8 and savedCard != null:
-			discard.append(savedCard)
-			savedCard = null
-			emit_signal("saveCard", "null", [])
-			print("Missed interview")
+		print("Did not meet requirements")
+		$ApplyButton.disabled = true
+		return false
+#	
 	#print(deck.size())
-	#print(discard.size())
+	#print(discard.size())	
 	
 
 func _on_InterviewButton_button_down():
@@ -133,11 +137,16 @@ func _on_InterviewButton_button_down():
 		print("Met requirements")
 		if (success == 3):
 			print("winner!")
+			get_tree().change_scene("res://Scenes/WinnerScreen.tscn")
 	else:
 		success = 0
 		discard.append(savedCard)
 		savedCard = null
 		emit_signal("saveCard", "null", [])
 		print("Did not meet requirements")
-	$InterviewButton/Button.disabled = true
-	$InterviewButton/ColorRect.color = Color("353d38")
+	$InterviewButton.disabled = true
+
+
+
+func _on_Sprite_ace_finished():
+	$DrawButton.disabled = false
