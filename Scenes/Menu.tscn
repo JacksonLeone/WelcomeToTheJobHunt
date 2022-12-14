@@ -17,7 +17,7 @@ func _on_Start_Game_Button_button_up():
 "
 
 [sub_resource type="DynamicFont" id=1]
-size = 80
+size = 72
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -68,22 +68,23 @@ custom_constants/margin_bottom = 100
 margin_left = 200.0
 margin_top = 75.0
 margin_right = 824.0
-margin_bottom = 500.0
+margin_bottom = 554.0
 
 [node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer"]
 margin_right = 624.0
-margin_bottom = 141.0
+margin_bottom = 170.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 1 )
-text = "Title Here"
+text = "Welcome to the Job Hunt"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
-margin_top = 145.0
+margin_top = 220.0
 margin_right = 624.0
-margin_bottom = 425.0
+margin_bottom = 479.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 20
