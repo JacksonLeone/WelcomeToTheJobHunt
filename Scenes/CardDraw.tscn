@@ -71,10 +71,12 @@ position = Vector2( 836.25, 245 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Deck" parent="Cards" instance=ExtResource( 2 )]
+visible = false
 position = Vector2( -500, -123.75 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Discard" parent="Cards" instance=ExtResource( 2 )]
+visible = false
 position = Vector2( -500, 225 )
 scale = Vector2( 0.5, 0.5 )
 
