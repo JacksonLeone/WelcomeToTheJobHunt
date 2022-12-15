@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Art/JobHuntWinScreen.jpg" type="Texture" id=2]
 [ext_resource path="res://Scenes/WinnerScreen.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
@@ -22,6 +23,10 @@ script = ExtResource( 3 )
 margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0.945098, 0.937255, 0.329412, 1 )
+
+[node name="JobHuntWinScreen" type="Sprite" parent="ColorRect"]
+position = Vector2( 513, 301 )
+texture = ExtResource( 2 )
 
 [node name="You Win" type="Label" parent="."]
 margin_left = 376.0
