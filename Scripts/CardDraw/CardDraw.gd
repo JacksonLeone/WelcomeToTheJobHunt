@@ -16,10 +16,10 @@ signal newCard(new_card, new_values)
 signal saveCard(new_card, new_values)
 signal playerCard()
 signal ace()
+signal start_rolling(cardLevel)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Replace with function body.
 	var f = File.new()
 	f.open("res://CardsCSV.txt", File.READ)
 	var line = f.get_csv_line()
@@ -31,11 +31,6 @@ func _ready():
 	deck = cardNames.duplicate(true)
 	randomize()
 	emit_signal("playerCard")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_DrawButton_button_down():
@@ -73,80 +68,66 @@ func _on_DrawButton_button_down():
 		
 
 func _on_ApplyButton_button_down():
-	var accepted = apply()
-	if accepted:
-		lastClicked = "apply"
-		success = 1
-		if currCard != null and currCard != savedCard:
-			pass
-			#if currCard.begins_with("Ace"):
-				#print("Can't save Aces")
-			#else:
+	lastClicked = "apply"
+	set_disabled_buttons(true)
+	emit_signal("start_rolling", cards[currCard][0], calc_roll_modifier(currCard))
+
+
+func _on_InterviewButton_button_down():
+	lastClicked = "interview"
+	set_disabled_buttons(true)	
+	emit_signal("start_rolling", cards[savedCard][0], calc_roll_modifier(savedCard))
+	
+func calc_roll_modifier(currCard):
+	var mod = 0
+	var stats = [PlayerStats.intelligence, PlayerStats.personality, PlayerStats.efficiency, PlayerStats.skills]
+	for i in range(4):
+		if stats[i] - cards[currCard][i+1] < -3:
+			mod -= 2
+		elif stats[i] - cards[currCard][i+1] < 0:
+			mod -= 1
+		elif stats[i] - cards[currCard][i+1] > 3:
+			mod += 2
+		elif stats[i] - cards[currCard][i+1] > 0:
+			mod += 1
+	return mod
+	
+
+func set_disabled_buttons(disabled):
+	$DrawButton.disabled = disabled
+	$ApplyButton.disabled = disabled
+
+
+func _on_Sprite_ace_finished():
+	$DrawButton.disabled = false
+
+
+func _on_Roller_rolling_finished(succeeded):
+	$DrawButton.disabled = false
+	get_node("Roller").visible = false
+	if lastClicked == "apply":
+		if succeeded:
+			success = 1
 			if savedCard != null and (discard.count(savedCard) == 0):
 				discard.append(savedCard)
 			savedCard = currCard
 			counter = 0
 			emit_signal("saveCard", savedCard, cards[savedCard])
-			_on_DrawButton_button_down()
-
-func apply():
-	var modifier = 0
-	var roll
-	if currCard.begins_with("Ace"):
-		roll = -654
-	else:
-		for x in range(4):
-			if cards[currCard][x + 1] - PlayerStats.stats()[x] < -4:
-				modifier -= 2
-			elif cards[currCard][x + 1] - PlayerStats.stats()[x] < 0:
-				modifier -= 1
-			elif cards[currCard][x + 1] - PlayerStats.stats()[x] >= 4:
-				modifier += 1
-	
-		roll = randi()%20+1
-		modifier += 2*int(bonus)
-	if roll + modifier > cards[currCard][4]:
-		print("Met requirements")
-		return true
-	else:
-		print("Did not meet requirements")
+#			_on_DrawButton_button_down()
+		else:
+			pass
 		$ApplyButton.disabled = true
-		return false
-#	
-	#print(deck.size())
-	#print(discard.size())	
-	
-
-func _on_InterviewButton_button_down():
-	lastClicked = "interview"
-	var modifier = 0
-	counter = 1
-	for x in range(4):
-		if cards[currCard][x + 1] - PlayerStats.stats()[x] < -4:
-			modifier -= 2
-		elif cards[currCard][x + 1] - PlayerStats.stats()[x] < 0:
-			modifier -= 1
-		elif cards[currCard][x + 1] - PlayerStats.stats()[x] >= 4:
-			modifier += 1
-			
-	
-	var roll = randi()%20+1
-	modifier += 2*int(bonus)
-	if roll + modifier > cards[currCard][4]:
-		success += 1
-		print("Met requirements")
-		if (success == 3):
-			print("winner!")
-			get_tree().change_scene("res://Scenes/WinnerScreen.tscn")
-	else:
-		success = 0
-		discard.append(savedCard)
-		savedCard = null
-		emit_signal("saveCard", "null", [])
-		print("Did not meet requirements")
-	$InterviewButton.disabled = true
-
-
-
-func _on_Sprite_ace_finished():
-	$DrawButton.disabled = false
+	if lastClicked == "interview":
+		if succeeded:
+			success += 1
+			counter = 0
+			if (success == 3):
+				print("winner!")
+				get_tree().change_scene("res://Scenes/WinnerScreen.tscn")
+		else:
+			success = 0
+			discard.append(savedCard)
+			savedCard = null
+			emit_signal("saveCard", "null", [])
+			print("Did not meet requirements")
+		$InterviewButton.disabled = true
