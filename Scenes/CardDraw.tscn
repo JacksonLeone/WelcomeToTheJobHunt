@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Art/PlayerStats.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/PlayerStats.gd" type="Script" id=4]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/Prefabs/Roller.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=11]
 size = 50
@@ -71,10 +72,12 @@ position = Vector2( 836.25, 245 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Deck" parent="Cards" instance=ExtResource( 2 )]
+visible = false
 position = Vector2( -500, -123.75 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Discard" parent="Cards" instance=ExtResource( 2 )]
+visible = false
 position = Vector2( -500, 225 )
 scale = Vector2( 0.5, 0.5 )
 
@@ -178,10 +181,14 @@ text = "Interview"
 flat = false
 icon_align = 1
 
+[node name="Roller" parent="." instance=ExtResource( 6 )]
+position = Vector2( 194, 178 )
+
 [connection signal="ace" from="." to="Sprite" method="_on_Node2D_ace"]
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
 [connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
 [connection signal="saveCard" from="." to="Cards/SavedCard" method="_on_Node2D_saveCard"]
+[connection signal="start_rolling" from="." to="Roller" method="_on_Node2D_start_rolling"]
 [connection signal="ace_finished" from="Sprite" to="." method="_on_Sprite_ace_finished"]
 [connection signal="pressed" from="Sprite/Intelligence" to="Sprite" method="_on_Intelligence_pressed"]
 [connection signal="pressed" from="Sprite/Personality" to="Sprite" method="_on_Personality_pressed"]
@@ -190,3 +197,4 @@ icon_align = 1
 [connection signal="button_down" from="DrawButton" to="." method="_on_DrawButton_button_down"]
 [connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
 [connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
+[connection signal="rolling_finished" from="Roller" to="." method="_on_Roller_rolling_finished"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Prefabs/Roller.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Art/D20.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/correct.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/remove.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.768627, 0.886275, 1, 1 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="D20" type="Sprite" parent="."]
+position = Vector2( 6.10352e-05, 3.05176e-05 )
+scale = Vector2( 0.599609, 0.599609 )
+texture = ExtResource( 3 )
+
+[node name="Number" type="Label" parent="D20"]
+margin_left = -58.3713
+margin_top = -71.7133
+margin_right = 59.6287
+margin_bottom = 34.2867
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
+text = "20"
+align = 1
+valign = 1
+
+[node name="Result" type="Node2D" parent="D20"]
+position = Vector2( 0.00012207, -3.33545 )
+scale = Vector2( 0.57609, 0.57609 )
+
+[node name="Success" type="Sprite" parent="D20/Result"]
+texture = ExtResource( 4 )
+
+[node name="Failure" type="Sprite" parent="D20/Result"]
+texture = ExtResource( 5 )
+
+[node name="Roll Time" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="Roll Time" to="." method="_on_Timer_timeout"]
