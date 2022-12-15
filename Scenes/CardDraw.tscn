@@ -1,11 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Art/PlayerStats.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/PlayerStats.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/CardDraw/PlayerStats.gd" type="Script" id=4]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Assets/Prefabs/Roller.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/RobotoMono Font/RobotoMono.tres" type="DynamicFont" id=7]
 
 [sub_resource type="DynamicFont" id=11]
 size = 50
@@ -184,6 +185,17 @@ icon_align = 1
 [node name="Roller" parent="." instance=ExtResource( 6 )]
 position = Vector2( 194, 178 )
 
+[node name="TeacherMode Button" type="Button" parent="."]
+margin_left = 816.0
+margin_top = 528.0
+margin_right = 983.0
+margin_bottom = 576.0
+custom_fonts/font = ExtResource( 7 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
+text = "Skip to Win"
+
 [connection signal="ace" from="." to="Sprite" method="_on_Node2D_ace"]
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
 [connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
@@ -198,3 +210,4 @@ position = Vector2( 194, 178 )
 [connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
 [connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
 [connection signal="rolling_finished" from="Roller" to="." method="_on_Roller_rolling_finished"]
+[connection signal="pressed" from="TeacherMode Button" to="." method="_on_Button_pressed"]
