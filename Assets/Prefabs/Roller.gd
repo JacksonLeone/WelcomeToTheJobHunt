@@ -35,8 +35,10 @@ func check_win():
 	
 	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC)
 	var success = false
-	print(roll)
-	if roll + modifier > cardLevel:
+	print("Roll", roll)
+	print("Mod", modifier)
+	print("Level", cardLevel)
+	if roll + modifier >= cardLevel:
 		print("Met requirements")
 		tween.tween_property($D20/Result/Success, "scale", Vector2(1.0, 1.0), 1.0).set_delay(0.5)
 		tween.tween_property($D20/Result/Success, "scale", Vector2.ZERO, 1.0).set_delay(0.5)

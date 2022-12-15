@@ -25,14 +25,14 @@ corner_radius_top_right = 22
 corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.933333, 0.690196, 0.54902, 1 )
 corner_radius_top_left = 22
 corner_radius_top_right = 22
 corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.462745, 0.768627, 0.486275, 1 )
 corner_radius_top_left = 22
 corner_radius_top_right = 22
@@ -113,29 +113,29 @@ custom_styles/disabled = SubResource( 8 )
 disabled = true
 text = "1"
 
-[node name="Skills" type="Button" parent="Sprite"]
-margin_left = 23.6299
-margin_top = -94.8716
-margin_right = 120.63
-margin_bottom = 29.1284
-rect_pivot_offset = Vector2( 496.227, -93.3163 )
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 11 )
-custom_styles/disabled = SubResource( 9 )
-disabled = true
-text = "1"
-
 [node name="Efficiency" type="Button" parent="Sprite"]
-margin_left = 169.84
-margin_top = -94.8716
-margin_right = 266.84
-margin_bottom = 29.1284
+margin_left = 23.6299
+margin_top = -94.8714
+margin_right = 120.63
+margin_bottom = 29.1286
 rect_pivot_offset = Vector2( 496.227, -93.3163 )
 custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 11 )
 custom_styles/disabled = SubResource( 10 )
+disabled = true
+text = "1"
+
+[node name="Skills" type="Button" parent="Sprite"]
+margin_left = 171.317
+margin_top = -96.4266
+margin_right = 268.317
+margin_bottom = 27.5734
+rect_pivot_offset = Vector2( 496.227, -93.3163 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
+custom_styles/disabled = SubResource( 9 )
 disabled = true
 text = "1"
 
@@ -192,8 +192,8 @@ position = Vector2( 194, 178 )
 [connection signal="ace_finished" from="Sprite" to="." method="_on_Sprite_ace_finished"]
 [connection signal="pressed" from="Sprite/Intelligence" to="Sprite" method="_on_Intelligence_pressed"]
 [connection signal="pressed" from="Sprite/Personality" to="Sprite" method="_on_Personality_pressed"]
-[connection signal="pressed" from="Sprite/Skills" to="Sprite" method="_on_Skills_pressed"]
 [connection signal="pressed" from="Sprite/Efficiency" to="Sprite" method="_on_Efficiency_pressed"]
+[connection signal="pressed" from="Sprite/Skills" to="Sprite" method="_on_Skills_pressed"]
 [connection signal="button_down" from="DrawButton" to="." method="_on_DrawButton_button_down"]
 [connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
 [connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
