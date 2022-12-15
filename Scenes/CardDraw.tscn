@@ -3,9 +3,10 @@
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Art/PlayerStats.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/PlayerStats.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/CardDraw/PlayerStats.gd" type="Script" id=4]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Assets/Prefabs/Roller.tscn" type="PackedScene" id=6]
+
 
 [sub_resource type="DynamicFont" id=11]
 size = 50

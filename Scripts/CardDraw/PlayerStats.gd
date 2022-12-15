@@ -2,8 +2,8 @@ extends Node
 
 onready var intelligenceButton := get_node("Intelligence")
 onready var personalityButton := get_node("Personality")
-onready var skillsButton := get_node("Skills")
 onready var efficiencyButton := get_node("Efficiency")
+onready var skillsButton := get_node("Skills")
 
 signal ace_finished()
 
@@ -14,8 +14,8 @@ func _process(delta):
 func setText():
 	intelligenceButton.text = str(PlayerStats.intelligence)
 	personalityButton.text = str(PlayerStats.personality)
-	skillsButton.text = str(PlayerStats.skills)
 	efficiencyButton.text = str(PlayerStats.efficiency)
+	skillsButton.text = str(PlayerStats.skills)
 
 
 func _on_Node2D_ace():
@@ -41,13 +41,14 @@ func _on_Personality_pressed():
 	emit_signal("ace_finished")
 
 
+func _on_Efficiency_pressed():
+	PlayerStats.efficiency += 1
+	disableButtons(true)
+	emit_signal("ace_finished")
+
+
 func _on_Skills_pressed():
 	PlayerStats.skills += 1
 	disableButtons(true)
 	emit_signal("ace_finished")
 
-
-func _on_Efficiency_pressed():
-	PlayerStats.efficiency += 1
-	disableButtons(true)
-	emit_signal("ace_finished")
