@@ -31,6 +31,9 @@ func _ready():
 	deck = cardNames.duplicate(true)
 	randomize()
 	emit_signal("playerCard")
+	
+	# teacher mode
+	$"TeacherMode Button".visible = PlayerStats.teacherMode
 
 
 func _on_DrawButton_button_down():
@@ -131,3 +134,8 @@ func _on_Roller_rolling_finished(succeeded):
 			emit_signal("saveCard", "null", [])
 			print("Did not meet requirements")
 		$InterviewButton.disabled = true
+
+
+func _on_Button_pressed():
+	if (PlayerStats.teacherMode):
+		get_tree().change_scene("res://Scenes/WinnerScreen.tscn")
