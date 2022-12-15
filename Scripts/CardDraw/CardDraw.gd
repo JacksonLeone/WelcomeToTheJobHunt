@@ -82,20 +82,14 @@ func calc_roll_modifier(currCard):
 	var mod = 0
 	var stats = [PlayerStats.intelligence, PlayerStats.personality, PlayerStats.efficiency, PlayerStats.skills]
 	for i in range(4):
-		print(str(cards[currCard][i+1]) + " vs " + str(stats[i]))
 		if stats[i] - cards[currCard][i+1] < -3:
-			print("-2")
 			mod -= 2
 		elif stats[i] - cards[currCard][i+1] < 0:
-			print("-1")
 			mod -= 1
 		elif stats[i] - cards[currCard][i+1] > 3:
-			print("+2")
 			mod += 2
 		elif stats[i] - cards[currCard][i+1] > 0:
-			print("+1")
 			mod += 1
-	print(mod)
 	return mod
 	
 

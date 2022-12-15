@@ -23,21 +23,8 @@ func _process(delta):
 
 
 func check_win():
-#	for x in range(4):
-#		if cardLevel - PlayerStats.stats()[x] < -4:
-#			modifier -= 2
-#		elif cardLevel - PlayerStats.stats()[x] < 0:
-#			modifier -= 1
-#		elif cardLevel - PlayerStats.stats()[x] >= 4:
-#			modifier += 1
-#
-#		roll = randi()%20+1
-	
 	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC)
 	var success = false
-	print("Roll", roll)
-	print("Mod", modifier)
-	print("Level", cardLevel)
 	if roll + modifier >= cardLevel:
 		print("Met requirements")
 		tween.tween_property($D20/Result/Success, "scale", Vector2(1.0, 1.0), 1.0).set_delay(0.5)
