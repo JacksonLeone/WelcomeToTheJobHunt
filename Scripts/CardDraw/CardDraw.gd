@@ -19,6 +19,8 @@ var oldVals = null
 signal newCard(new_card, new_values)
 signal saveCard(new_card, new_values)
 signal drawCard()
+signal setMods(mods)
+signal hideMods()
 signal discard(old_card, old_values)
 signal playerCard()
 signal ace()
@@ -58,6 +60,12 @@ func setDiscard():
 	$Cards/Discard.visible = true
 	emit_signal("discard", oldCard, oldVals)
 	
+func checkIfAce():
+	if (currCard.begins_with("Ace")):
+		emit_signal("ace")
+		$DrawButton.disabled = true
+		$ApplyButton.disabled = true
+	
 	
 func draw_card_animation(pos):
 	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
@@ -66,11 +74,13 @@ func draw_card_animation(pos):
 	tween.tween_callback(self, "emit_signal", ["newCard", currCard, cards[currCard]])
 	tween.tween_property($Cards/CurrentCard, "position", pos, 0.5)
 	tween.tween_callback(self, "set_disabled_buttons", [false])
+	tween.tween_callback(self, "checkIfAce")
 
 
 func _on_DrawButton_button_down():
 	$ApplyButton.disabled = false
 	emit_signal("drawCard")
+	emit_signal("hideMods")
 	if lastClicked == "draw" and currCard.begins_with("Ace") == false:
 		bonus = true
 	else:
@@ -90,11 +100,6 @@ func _on_DrawButton_button_down():
 	
 	# card animations for drawing a card
 	handle_draw_card_animation()
-
-	if (currCard.begins_with("Ace")):
-		emit_signal("ace")
-		$DrawButton.disabled = true
-		$ApplyButton.disabled = true
 		
 	if counter == 8 and savedCard != null:
 		$InterviewButton.disabled = false
@@ -124,26 +129,29 @@ func _on_InterviewButton_button_down():
 func calc_roll_modifier(currCard):
 	var mod = 0
 	var stats = [PlayerStats.intelligence, PlayerStats.personality, PlayerStats.efficiency, PlayerStats.skills]
+	var mods = []
 	for i in range(4):
 		if stats[i] - cards[currCard][i+1] < -3:
 			mod -= 2
+			mods.append(-2)
 		elif stats[i] - cards[currCard][i+1] < 0:
 			mod -= 1
+			mods.append(-1)
 		elif stats[i] - cards[currCard][i+1] > 3:
 			mod += 2
+			mods.append(2)
 		elif stats[i] - cards[currCard][i+1] > 0:
 			mod += 1
+			mods.append(1)
+		else:
+			mods.append(0)
+	emit_signal("setMods", mods)
 	return mod
 	
 
 func set_disabled_buttons(disabled):
 	$DrawButton.disabled = disabled
 	$ApplyButton.disabled = disabled
-
-
-func _on_Sprite_ace_finished():
-	$DrawButton.disabled = false
-
 
 func _on_Roller_rolling_finished(succeeded):
 	$DrawButton.disabled = false
@@ -190,9 +198,11 @@ func save_card_animation(pos):
 	$Cards/CurrentCard.position = pos
 	$Cards/CurrentCard.scale = Vector2.ZERO
 	
-	
-
 
 func _on_Button_pressed():
 	if (PlayerStats.teacherMode):
 		get_tree().change_scene("res://Scenes/WinnerScreen.tscn")
+
+
+func _on_Stats_Display_ace_finished():
+	$DrawButton.disabled = false
