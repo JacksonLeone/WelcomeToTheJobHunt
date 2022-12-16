@@ -66,12 +66,7 @@ func checkIfAce():
 		emit_signal("ace")
 		$DrawButton.disabled = true
 		$ApplyButton.disabled = true
-	
-func checkIfAce():
-	if (currCard.begins_with("Ace")):
-		emit_signal("ace")
-		$DrawButton.disabled = true
-		$ApplyButton.disabled = true
+
 	
 	
 func draw_card_animation(pos):
