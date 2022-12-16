@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Art/Checkbox/Artboard 1@0.5x.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Checkbox/Artboard 1_2@0.5x.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/Checkbox/Artboard 1_1@0.5x.png" type="Texture" id=3]
+[ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scripts/OptionsScreen.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 42
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.470588 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0.666667 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 0.352941 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Options" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.196078, 0.192157, 0.188235, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Options" type="Label" parent="."]
+margin_left = 333.0
+margin_top = 72.0
+margin_right = 693.0
+margin_bottom = 139.0
+custom_fonts/font = SubResource( 1 )
+text = "Options"
+align = 1
+
+[node name="TecherModeCheck" type="TextureButton" parent="."]
+margin_left = 560.0
+margin_top = 159.055
+margin_right = 860.0
+margin_bottom = 459.055
+rect_scale = Vector2( 0.325828, 0.325828 )
+rect_pivot_offset = Vector2( 149.996, 150 )
+toggle_mode = true
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 2 )
+stretch_mode = 5
+
+[node name="TeacherMode" type="Label" parent="."]
+margin_left = 256.0
+margin_top = 273.623
+margin_right = 616.0
+margin_bottom = 340.623
+custom_fonts/font = SubResource( 1 )
+text = "Teacher Mode"
+
+[node name="Back" type="Button" parent="."]
+margin_left = 312.0
+margin_top = 448.0
+margin_right = 702.0
+margin_bottom = 528.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+text = "Back to Menu"
+
+[connection signal="toggled" from="TecherModeCheck" to="." method="_on_TecherModeCheck_toggled"]
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]

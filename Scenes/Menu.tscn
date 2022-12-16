@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
+[ext_resource path="res://Assets/Art/JobHuntMainScreen.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/PointBuy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=3]
 
@@ -17,7 +18,7 @@ func _on_Start_Game_Button_button_up():
 "
 
 [sub_resource type="DynamicFont" id=1]
-size = 80
+size = 72
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -54,11 +55,14 @@ nextGameScene = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-color = Color( 0.129412, 0.298039, 0.541176, 1 )
+
+[node name="JobHuntMainScreen" type="Sprite" parent="ColorRect"]
+position = Vector2( 512, 300 )
+texture = ExtResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 656.0
 custom_constants/margin_right = 200
 custom_constants/margin_top = 75
 custom_constants/margin_left = 200
@@ -68,22 +72,23 @@ custom_constants/margin_bottom = 100
 margin_left = 200.0
 margin_top = 75.0
 margin_right = 824.0
-margin_bottom = 500.0
+margin_bottom = 556.0
 
 [node name="Label" type="Label" parent="ColorRect/MarginContainer/VBoxContainer"]
 margin_right = 624.0
-margin_bottom = 141.0
+margin_bottom = 197.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_fonts/font = SubResource( 1 )
-text = "Title Here"
+text = "Welcome to the Job Hunt"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
-margin_top = 145.0
+margin_top = 201.0
 margin_right = 624.0
-margin_bottom = 425.0
+margin_bottom = 481.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 20
