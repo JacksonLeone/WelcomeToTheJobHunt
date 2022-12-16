@@ -4,6 +4,7 @@ var cards = {}
 var cardNames = []
 var deck = []
 var discard = []
+var startedDiscard = false
 var currCard = null
 var savedCard = null
 var counter = 0
@@ -11,9 +12,13 @@ var bonus = false
 var lastClicked = ""
 var success = 0
 
+var oldCard = null
+var oldVals = null
+
 
 signal newCard(new_card, new_values)
 signal saveCard(new_card, new_values)
+signal discard(old_card, old_values)
 signal playerCard()
 signal ace()
 signal start_rolling(cardLevel)
@@ -21,6 +26,7 @@ signal start_rolling(cardLevel)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var f = File.new()
+	$Cards/Discard.visible = false
 	f.open("res://CardsCSV.txt", File.READ)
 	var line = f.get_csv_line()
 	while line.size() == 5:
@@ -35,6 +41,30 @@ func _ready():
 	# teacher mode
 	$"TeacherMode Button".visible = PlayerStats.teacherMode
 
+func handle_draw_card_animation():
+	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
+	var discardPos = $Cards/Discard.position
+	var origPos = $Cards/CurrentCard.position
+	tween.tween_callback(self, "set_disabled_buttons", [true])
+	tween.tween_property($Cards/CurrentCard, "position", discardPos, 0.5)
+	tween.parallel().tween_property($Cards/CurrentCard, "scale", Vector2(0.4,0.4), 0.5)
+	if (oldCard):
+		tween.tween_callback(self, "setDiscard")
+	tween.tween_callback(self, "draw_card_animation", [origPos])
+
+func setDiscard():
+	$Cards/Discard.visible = true
+	emit_signal("discard", oldCard, oldVals)
+	
+	
+func draw_card_animation(pos):
+	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
+	$Cards/CurrentCard.position = Vector2(-3.75, -540)
+	$Cards/CurrentCard.scale = Vector2(0.64, 0.64)
+	tween.tween_callback(self, "emit_signal", ["newCard", currCard, cards[currCard]])
+	tween.tween_property($Cards/CurrentCard, "position", pos, 0.5)
+	tween.tween_callback(self, "set_disabled_buttons", [false])
+
 
 func _on_DrawButton_button_down():
 	$ApplyButton.disabled = false
@@ -43,9 +73,10 @@ func _on_DrawButton_button_down():
 	else:
 		bonus = false
 	
-	lastClicked = "draw"
 	if currCard != null and (discard.count(currCard) == 0):
 		discard.append(currCard)
+		oldCard = currCard
+		oldVals = cards[currCard]
 	
 	if deck.size() == 0:
 		deck = discard.duplicate(true)
@@ -53,7 +84,10 @@ func _on_DrawButton_button_down():
 	
 	currCard = deck.pop_at(randi() % deck.size())
 	counter += 1
-	emit_signal("newCard", currCard, cards[currCard])
+	
+	# card animations for drawing a card
+	handle_draw_card_animation()
+
 	if (currCard.begins_with("Ace")):
 		emit_signal("ace")
 		$DrawButton.disabled = true
@@ -68,6 +102,9 @@ func _on_DrawButton_button_down():
 			savedCard = null
 			emit_signal("saveCard", "null", [])
 			print("Missed interview")
+			
+	# Indicates last clicked
+	lastClicked = "draw"
 		
 
 func _on_ApplyButton_button_down():

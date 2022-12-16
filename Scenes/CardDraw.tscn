@@ -8,6 +8,18 @@
 [ext_resource path="res://Assets/Prefabs/Roller.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/RobotoMono Font/RobotoMono.tres" type="DynamicFont" id=7]
 
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.219608, 0.501961, 0.329412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.207843, 0.239216, 0.219608, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
+
 [sub_resource type="DynamicFont" id=11]
 size = 50
 font_data = ExtResource( 5 )
@@ -40,24 +52,58 @@ corner_radius_top_right = 22
 corner_radius_bottom_right = 22
 corner_radius_bottom_left = 22
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.219608, 0.501961, 0.329412, 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.207843, 0.239216, 0.219608, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.203922, 0.388235, 0.27451, 1 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="DrawButton" type="ToolButton" parent="."]
+margin_left = 351.0
+margin_top = 365.0
+margin_right = 501.0
+margin_bottom = 415.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
+text = "Draw"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ApplyButton" type="ToolButton" parent="."]
+margin_left = 541.0
+margin_top = 365.0
+margin_right = 691.0
+margin_bottom = 415.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+disabled = true
+text = "Apply"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="InterviewButton" type="ToolButton" parent="."]
+margin_left = 817.0
+margin_top = 378.0
+margin_right = 967.0
+margin_bottom = 428.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+disabled = true
+text = "Interview"
+flat = false
+icon_align = 1
 
 [node name="Cards" type="Node2D" parent="."]
 position = Vector2( 534, 251 )
 scale = Vector2( 0.8, 0.8 )
+
+[node name="Discard" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( -477.5, 273.75 )
+scale = Vector2( 0.4, 0.4 )
 
 [node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
 position = Vector2( -3.75, -90 )
@@ -74,13 +120,8 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="Deck" parent="Cards" instance=ExtResource( 2 )]
 visible = false
-position = Vector2( -500, -123.75 )
-scale = Vector2( 0.5, 0.5 )
-
-[node name="Discard" parent="Cards" instance=ExtResource( 2 )]
-visible = false
-position = Vector2( -500, 225 )
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( -3.75012, -90 )
+scale = Vector2( 0.64, 0.64 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 525, 552 )
@@ -140,50 +181,8 @@ custom_styles/disabled = SubResource( 9 )
 disabled = true
 text = "1"
 
-[node name="DrawButton" type="ToolButton" parent="."]
-margin_left = 351.0
-margin_top = 365.0
-margin_right = 501.0
-margin_bottom = 415.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/disabled = SubResource( 3 )
-custom_styles/normal = SubResource( 2 )
-text = "Draw"
-flat = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="ApplyButton" type="ToolButton" parent="."]
-margin_left = 541.0
-margin_top = 365.0
-margin_right = 691.0
-margin_bottom = 415.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/disabled = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
-disabled = true
-text = "Apply"
-flat = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="InterviewButton" type="ToolButton" parent="."]
-margin_left = 817.0
-margin_top = 378.0
-margin_right = 967.0
-margin_bottom = 428.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/disabled = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
-disabled = true
-text = "Interview"
-flat = false
-icon_align = 1
-
 [node name="Roller" parent="." instance=ExtResource( 6 )]
-position = Vector2( 194, 178 )
+position = Vector2( 224, 200 )
 
 [node name="TeacherMode Button" type="Button" parent="."]
 margin_left = 816.0
@@ -197,17 +196,18 @@ custom_styles/normal = SubResource( 2 )
 text = "Skip to Win"
 
 [connection signal="ace" from="." to="Sprite" method="_on_Node2D_ace"]
+[connection signal="discard" from="." to="Cards/Discard" method="_on_Node2D_discard"]
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
 [connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
 [connection signal="saveCard" from="." to="Cards/SavedCard" method="_on_Node2D_saveCard"]
 [connection signal="start_rolling" from="." to="Roller" method="_on_Node2D_start_rolling"]
+[connection signal="button_down" from="DrawButton" to="." method="_on_DrawButton_button_down"]
+[connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
+[connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
 [connection signal="ace_finished" from="Sprite" to="." method="_on_Sprite_ace_finished"]
 [connection signal="pressed" from="Sprite/Intelligence" to="Sprite" method="_on_Intelligence_pressed"]
 [connection signal="pressed" from="Sprite/Personality" to="Sprite" method="_on_Personality_pressed"]
 [connection signal="pressed" from="Sprite/Efficiency" to="Sprite" method="_on_Efficiency_pressed"]
 [connection signal="pressed" from="Sprite/Skills" to="Sprite" method="_on_Skills_pressed"]
-[connection signal="button_down" from="DrawButton" to="." method="_on_DrawButton_button_down"]
-[connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
-[connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
 [connection signal="rolling_finished" from="Roller" to="." method="_on_Roller_rolling_finished"]
 [connection signal="pressed" from="TeacherMode Button" to="." method="_on_Button_pressed"]
