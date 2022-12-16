@@ -4,12 +4,12 @@ var cards = {}
 var cardNames = []
 var deck = []
 var discard = []
-var startedDiscard = false
 var currCard = null
 var savedCard = null
 var counter = 0
 var bonus = false
 var lastClicked = ""
+var applySucceed = false
 var success = 0
 
 var oldCard = null
@@ -18,6 +18,7 @@ var oldVals = null
 
 signal newCard(new_card, new_values)
 signal saveCard(new_card, new_values)
+signal drawCard()
 signal discard(old_card, old_values)
 signal playerCard()
 signal ace()
@@ -45,11 +46,12 @@ func handle_draw_card_animation():
 	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
 	var discardPos = $Cards/Discard.position
 	var origPos = $Cards/CurrentCard.position
-	tween.tween_callback(self, "set_disabled_buttons", [true])
-	tween.tween_property($Cards/CurrentCard, "position", discardPos, 0.5)
-	tween.parallel().tween_property($Cards/CurrentCard, "scale", Vector2(0.4,0.4), 0.5)
-	if (oldCard):
-		tween.tween_callback(self, "setDiscard")
+	if not (lastClicked == "apply" and applySucceed):
+		tween.tween_callback(self, "set_disabled_buttons", [true])
+		tween.tween_property($Cards/CurrentCard, "position", discardPos, 0.5)
+		tween.parallel().tween_property($Cards/CurrentCard, "scale", Vector2(0.4,0.4), 0.5)
+		if (oldCard):
+			tween.tween_callback(self, "setDiscard")
 	tween.tween_callback(self, "draw_card_animation", [origPos])
 
 func setDiscard():
@@ -59,7 +61,7 @@ func setDiscard():
 	
 func draw_card_animation(pos):
 	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
-	$Cards/CurrentCard.position = Vector2(-3.75, -540)
+	$Cards/CurrentCard.position = Vector2(-27.5, -540)
 	$Cards/CurrentCard.scale = Vector2(0.64, 0.64)
 	tween.tween_callback(self, "emit_signal", ["newCard", currCard, cards[currCard]])
 	tween.tween_property($Cards/CurrentCard, "position", pos, 0.5)
@@ -68,6 +70,7 @@ func draw_card_animation(pos):
 
 func _on_DrawButton_button_down():
 	$ApplyButton.disabled = false
+	emit_signal("drawCard")
 	if lastClicked == "draw" and currCard.begins_with("Ace") == false:
 		bonus = true
 	else:
@@ -144,18 +147,18 @@ func _on_Sprite_ace_finished():
 
 func _on_Roller_rolling_finished(succeeded):
 	$DrawButton.disabled = false
-	get_node("Roller").visible = false
 	if lastClicked == "apply":
+		applySucceed = succeeded
 		if succeeded:
 			success = 1
 			if savedCard != null and (discard.count(savedCard) == 0):
 				discard.append(savedCard)
 			savedCard = currCard
 			counter = 0
-			emit_signal("saveCard", savedCard, cards[savedCard])
+			handle_save_card_animations()
+#			emit_signal("saveCard", savedCard, cards[savedCard])
 #			_on_DrawButton_button_down()
-		else:
-			pass
+		
 		$ApplyButton.disabled = true
 	if lastClicked == "interview":
 		if succeeded:
@@ -171,6 +174,23 @@ func _on_Roller_rolling_finished(succeeded):
 			emit_signal("saveCard", "null", [])
 			print("Did not meet requirements")
 		$InterviewButton.disabled = true
+		
+func handle_save_card_animations():
+	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
+	var savedPos = $Cards/SavedCard.position
+	var savedScale = Vector2(0.5, 0.5)
+	var origPos = $Cards/CurrentCard.position
+	tween.tween_property($Cards/CurrentCard, "position", savedPos, 0.5)
+	tween.parallel().tween_property($Cards/CurrentCard, "scale", savedScale, 0.5)
+	tween.tween_callback(self, "save_card_animation", [origPos])
+
+
+func save_card_animation(pos):
+	emit_signal("saveCard", savedCard, cards[savedCard])
+	$Cards/CurrentCard.position = pos
+	$Cards/CurrentCard.scale = Vector2.ZERO
+	
+	
 
 
 func _on_Button_pressed():

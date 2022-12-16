@@ -61,10 +61,10 @@ position = Vector2( 512, 300 )
 texture = ExtResource( 8 )
 
 [node name="DrawButton" type="ToolButton" parent="."]
-margin_left = 351.0
-margin_top = 365.0
-margin_right = 501.0
-margin_bottom = 415.0
+margin_left = 336.0
+margin_top = 344.0
+margin_right = 486.0
+margin_bottom = 394.0
 custom_styles/hover = SubResource( 5 )
 custom_styles/disabled = SubResource( 3 )
 custom_styles/normal = SubResource( 2 )
@@ -75,10 +75,10 @@ __meta__ = {
 }
 
 [node name="ApplyButton" type="ToolButton" parent="."]
-margin_left = 541.0
-margin_top = 365.0
-margin_right = 691.0
-margin_bottom = 415.0
+margin_left = 526.0
+margin_top = 344.0
+margin_right = 676.0
+margin_bottom = 394.0
 custom_styles/hover = SubResource( 5 )
 custom_styles/disabled = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
@@ -107,16 +107,16 @@ position = Vector2( 534, 251 )
 scale = Vector2( 0.8, 0.8 )
 
 [node name="Discard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( -477.5, 273.75 )
+position = Vector2( -477.5, 293.75 )
 scale = Vector2( 0.4, 0.4 )
-
-[node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( -3.75, -90 )
-scale = Vector2( 0.639744, 0.639744 )
 
 [node name="SavedCard" parent="Cards" instance=ExtResource( 2 )]
 position = Vector2( 448.25, 15 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
+position = Vector2( -27.5, -93.5 )
+scale = Vector2( 0.639744, 0.639744 )
 
 [node name="Player" parent="Cards" instance=ExtResource( 2 )]
 visible = false
@@ -129,7 +129,7 @@ position = Vector2( -3.75012, -90 )
 scale = Vector2( 0.64, 0.64 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 525, 552 )
+position = Vector2( 512, 553 )
 scale = Vector2( 0.677109, 0.642974 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
@@ -187,7 +187,8 @@ disabled = true
 text = "1"
 
 [node name="Roller" parent="." instance=ExtResource( 6 )]
-position = Vector2( 224, 200 )
+position = Vector2( 208, 192 )
+scale = Vector2( 0.441707, 0.441707 )
 
 [node name="TeacherMode Button" type="Button" parent="."]
 margin_left = 816.0
@@ -202,6 +203,7 @@ text = "Skip to Win"
 
 [connection signal="ace" from="." to="Sprite" method="_on_Node2D_ace"]
 [connection signal="discard" from="." to="Cards/Discard" method="_on_Node2D_discard"]
+[connection signal="drawCard" from="." to="Roller" method="_on_Node2D_drawCard"]
 [connection signal="newCard" from="." to="Cards/CurrentCard" method="_on_Node2D_newCard"]
 [connection signal="playerCard" from="." to="Cards/Player" method="_on_Node2D_playerCard"]
 [connection signal="saveCard" from="." to="Cards/SavedCard" method="_on_Node2D_saveCard"]

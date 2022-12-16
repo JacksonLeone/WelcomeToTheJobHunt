@@ -34,8 +34,6 @@ func check_win():
 		print("Did not meet requirements")
 		tween.tween_property($D20/Result/Failure, "scale", Vector2(1.0, 1.0), 1.0).set_delay(0.5)
 		tween.tween_property($D20/Result/Failure, "scale", Vector2.ZERO, 1.0).set_delay(0.5)
-	tween.tween_property($D20, "rotation_degrees", -30.0, 0.5)
-	tween.parallel().tween_property($D20, "scale", Vector2.ZERO, 0.5)
 	tween.tween_callback(self, "emit_signal", ["rolling_finished", success])
 		
 
@@ -44,13 +42,14 @@ func _on_Timer_timeout():
 	check_win()
 	
 func start_roll():
+	var origScale = $D20.scale
 	$D20.scale = Vector2.ZERO
 	$D20.rotation = -30.0
 	$D20/Result/Success.scale = Vector2.ZERO
 	$D20/Result/Failure.scale = Vector2.ZERO
 	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property($D20, "rotation_degrees", 0.0, 1)
-	tween.parallel().tween_property($D20, "scale", Vector2(0.6, 0.6), 1.0)
+	tween.parallel().tween_property($D20, "scale", Vector2(1, 1), 1.0)
 	tween.parallel().tween_callback(self, "start_timer")
 
 func start_timer():
@@ -63,3 +62,10 @@ func _on_Node2D_start_rolling(level, mod):
 	modifier = mod
 	start_roll()
 
+func animate_out():
+	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property($D20, "rotation_degrees", -30.0, 0.5)
+	tween.parallel().tween_property($D20, "scale", Vector2.ZERO, 0.5)
+
+func _on_Node2D_drawCard():
+	animate_out()
