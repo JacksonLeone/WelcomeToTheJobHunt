@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/CardDraw/CardDraw.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Prefabs/Card.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Prefabs/PlayerStatsDisplay.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Prefabs/Roller.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Assets/RobotoMono Font/RobotoMono.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Assets/Art/JobHuntGameScreen.jpg" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=5]
@@ -39,9 +38,6 @@ custom_styles/disabled = SubResource( 3 )
 custom_styles/normal = SubResource( 2 )
 text = "Draw"
 flat = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="ApplyButton" type="ToolButton" parent="."]
 margin_left = 526.0
@@ -54,9 +50,6 @@ custom_styles/normal = SubResource( 4 )
 disabled = true
 text = "Apply"
 flat = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="InterviewButton" type="ToolButton" parent="."]
 margin_left = 817.0
@@ -71,12 +64,16 @@ text = "Interview"
 flat = false
 icon_align = 1
 
+[node name="Roller" parent="." instance=ExtResource( 6 )]
+position = Vector2( 208, 192 )
+scale = Vector2( 0.441707, 0.441707 )
+
 [node name="Cards" type="Node2D" parent="."]
 position = Vector2( 534, 251 )
 scale = Vector2( 0.8, 0.8 )
 
 [node name="Discard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( -477.5, 293.75 )
+position = Vector2( -447.5, 241.25 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="SavedCard" parent="Cards" instance=ExtResource( 2 )]
@@ -84,7 +81,7 @@ position = Vector2( 448.25, 15 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="CurrentCard" parent="Cards" instance=ExtResource( 2 )]
-position = Vector2( -27.5, -93.5 )
+position = Vector2( -27.5, -90 )
 scale = Vector2( 0.639744, 0.639744 )
 
 [node name="Player" parent="Cards" instance=ExtResource( 2 )]
@@ -94,25 +91,23 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="Deck" parent="Cards" instance=ExtResource( 2 )]
 visible = false
-position = Vector2( -3.75012, -90 )
-scale = Vector2( 0.64, 0.64 )
+position = Vector2( -500, -123.75 )
+scale = Vector2( 0.5, 0.5 )
 
-[node name="Roller" parent="." instance=ExtResource( 6 )]
-position = Vector2( 208, 192 )
-scale = Vector2( 0.441707, 0.441707 )
-
-[node name="TeacherMode Button" type="Button" parent="."]
-margin_left = 816.0
-margin_top = 528.0
-margin_right = 983.0
-margin_bottom = 576.0
-custom_fonts/font = ExtResource( 7 )
+[node name="Button" type="ToolButton" parent="."]
+margin_left = 812.0
+margin_top = 507.0
+margin_right = 962.0
+margin_bottom = 557.0
 custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/normal = SubResource( 2 )
-text = "Skip to Win"
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "Skip Level"
+flat = false
+icon_align = 1
 
 [connection signal="ace" from="." to="Stats Display" method="_on_Node2D_ace"]
+[connection signal="ace" from="." to="Cards/Discard" method="_on_Node2D_ace"]
 [connection signal="discard" from="." to="Cards/Discard" method="_on_Node2D_discard"]
 [connection signal="drawCard" from="." to="Roller" method="_on_Node2D_drawCard"]
 [connection signal="hideMods" from="." to="Stats Display" method="_on_Node2D_hideMods"]
@@ -126,4 +121,4 @@ text = "Skip to Win"
 [connection signal="button_down" from="ApplyButton" to="." method="_on_ApplyButton_button_down"]
 [connection signal="button_down" from="InterviewButton" to="." method="_on_InterviewButton_button_down"]
 [connection signal="rolling_finished" from="Roller" to="." method="_on_Roller_rolling_finished"]
-[connection signal="pressed" from="TeacherMode Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

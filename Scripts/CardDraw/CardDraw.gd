@@ -14,6 +14,7 @@ var success = 0
 
 var oldCard = null
 var oldVals = null
+var oldLogo = null
 
 
 signal newCard(new_card, new_values)
@@ -21,7 +22,7 @@ signal saveCard(new_card, new_values)
 signal drawCard()
 signal setMods(mods)
 signal hideMods()
-signal discard(old_card, old_values)
+signal discard(old_card, old_values, old_logo)
 signal playerCard()
 signal ace()
 signal start_rolling(cardLevel)
@@ -42,7 +43,7 @@ func _ready():
 	emit_signal("playerCard")
 	
 	# teacher mode
-	$"TeacherMode Button".visible = PlayerStats.teacherMode
+	$Button.visible = PlayerStats.teacherMode
 
 func handle_draw_card_animation():
 	var tween := create_tween().set_trans(Tween.TRANS_CUBIC)
@@ -58,7 +59,13 @@ func handle_draw_card_animation():
 
 func setDiscard():
 	$Cards/Discard.visible = true
-	emit_signal("discard", oldCard, oldVals)
+	emit_signal("discard", oldCard, oldVals, oldLogo)
+	
+func checkIfAce():
+	if (currCard.begins_with("Ace")):
+		emit_signal("ace")
+		$DrawButton.disabled = true
+		$ApplyButton.disabled = true
 	
 func checkIfAce():
 	if (currCard.begins_with("Ace")):
@@ -90,6 +97,7 @@ func _on_DrawButton_button_down():
 		discard.append(currCard)
 		oldCard = currCard
 		oldVals = cards[currCard]
+		oldLogo = $Cards/CurrentCard.logoFrame
 	
 	if deck.size() == 0:
 		deck = discard.duplicate(true)
@@ -156,6 +164,7 @@ func set_disabled_buttons(disabled):
 func _on_Roller_rolling_finished(succeeded):
 	$DrawButton.disabled = false
 	if lastClicked == "apply":
+		oldLogo = $Cards/CurrentCard.logoFrame
 		applySucceed = succeeded
 		if succeeded:
 			success = 1
@@ -164,8 +173,6 @@ func _on_Roller_rolling_finished(succeeded):
 			savedCard = currCard
 			counter = 0
 			handle_save_card_animations()
-#			emit_signal("saveCard", savedCard, cards[savedCard])
-#			_on_DrawButton_button_down()
 		
 		$ApplyButton.disabled = true
 	if lastClicked == "interview":
@@ -194,7 +201,7 @@ func handle_save_card_animations():
 
 
 func save_card_animation(pos):
-	emit_signal("saveCard", savedCard, cards[savedCard])
+	emit_signal("saveCard", savedCard, cards[savedCard], oldLogo)
 	$Cards/CurrentCard.position = pos
 	$Cards/CurrentCard.scale = Vector2.ZERO
 	

@@ -9,5 +9,3 @@ var teacherMode = false
 
 func stats():
 	return [intelligence, personality, efficiency, skills]
-	
-
