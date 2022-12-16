@@ -7,6 +7,7 @@ onready var intelligence = $Intelligence
 onready var personality = $Personality
 onready var efficiency = $Efficiency
 onready var skills = $Skills
+onready var logo = $Logo
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,8 +29,11 @@ func set_background(frame):
 func _on_Node2D_newCard(new_name, new_values):
 	if new_name.begins_with("Ace"):
 		set_background(1)
+		logo.set_frame(0)
 	elif card.get_frame() != 0:
 		set_background(0)
+	if new_name.begins_with("Ace") == false:
+		logo.set_frame(randi()%16+1)
 	title.text = new_name
 	level.set_frame(new_values[0])
 	intelligence.set_frame(new_values[1])
@@ -47,6 +51,8 @@ func _on_Node2D_saveCard(new_name, new_values):
 		efficiency.set_frame(0)
 		skills.set_frame(0)
 		level.set_frame(0)
+		logo.set_frame(0)
+		
 	else:
 		if card.get_frame() != 0:
 			set_background(0)
@@ -56,6 +62,7 @@ func _on_Node2D_saveCard(new_name, new_values):
 		personality.set_frame(new_values[2])
 		efficiency.set_frame(new_values[3])
 		skills.set_frame(new_values[4])
+		logo.set_frame(randi()%16+1)
 		
 
 
